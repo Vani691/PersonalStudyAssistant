@@ -1,4 +1,7 @@
 import random
+import time
+
+# ---------------- QUESTION BANK ----------------
 
 question_bank = {
     "Python": {
@@ -27,6 +30,15 @@ question_bank = {
     }
 }
 
+# ---------------- FUNCTIONS ----------------
+
+def show_menu():
+    print("\n=== Personal Study Assistant ===")
+    print("1. Take Quiz")
+    print("2. Study Timer")
+    print("3. Exit")
+
+
 def flashcard_quiz():
     print("\nChoose a topic:")
     topics = list(question_bank.keys())
@@ -42,17 +54,42 @@ def flashcard_quiz():
 
     score = 0
     total_questions = min(3, len(question_list))
-
     selected_questions = random.sample(question_list, total_questions)
+
+    print(f"\nStarting quiz on {selected_topic}...\n")
 
     for question in selected_questions:
         user_answer = input(question + " ")
         correct_answer = questions[question]
 
         if user_answer.strip().lower() == correct_answer.lower():
-            print("Correct!")
+            print("Correct!\n")
             score += 1
         else:
-            print("Wrong! Correct answer is:", correct_answer)
+            print("Wrong! Correct answer is:", correct_answer, "\n")
 
-    print(f"\nYour score: {score}/{total_questions}")
+    print(f"Your score: {score}/{total_questions}")
+
+
+def study_timer():
+    minutes = int(input("Enter study time in minutes: "))
+    print("Focus time started...")
+    time.sleep(minutes * 60)
+    print("Time's up! Take a break 😊")
+
+
+# ---------------- MAIN PROGRAM ----------------
+
+while True:
+    show_menu()
+    option = input("Choose an option: ")
+
+    if option == "1":
+        flashcard_quiz()
+    elif option == "2":
+        study_timer()
+    elif option == "3":
+        print("Goodbye! Happy studying 💙")
+        break
+    else:
+        print("Invalid choice. Try again.")
